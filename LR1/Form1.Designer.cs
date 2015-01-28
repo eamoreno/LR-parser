@@ -86,6 +86,7 @@
             this.btnDibuja.TabIndex = 3;
             this.btnDibuja.Text = "Dibujar AFD a LR(0)";
             this.btnDibuja.UseVisualStyleBackColor = false;
+            this.btnDibuja.Click += new System.EventHandler(this.btnDibuja_Click);
             // 
             // btnAnaliza
             // 
@@ -97,6 +98,7 @@
             this.btnAnaliza.TabIndex = 4;
             this.btnAnaliza.Text = "Analizar";
             this.btnAnaliza.UseVisualStyleBackColor = false;
+            this.btnAnaliza.Click += new System.EventHandler(this.btnAnaliza_Click);
             // 
             // textBox1
             // 
@@ -134,7 +136,7 @@
             this.rtbGramaticaA.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.rtbGramaticaA.Location = new System.Drawing.Point(12, 36);
             this.rtbGramaticaA.Name = "rtbGramaticaA";
-            this.rtbGramaticaA.Size = new System.Drawing.Size(134, 155);
+            this.rtbGramaticaA.Size = new System.Drawing.Size(148, 155);
             this.rtbGramaticaA.TabIndex = 8;
             this.rtbGramaticaA.Text = "";
             // 
@@ -157,7 +159,7 @@
             this.gBGramaticaA.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.gBGramaticaA.Location = new System.Drawing.Point(223, 90);
             this.gBGramaticaA.Name = "gBGramaticaA";
-            this.gBGramaticaA.Size = new System.Drawing.Size(160, 210);
+            this.gBGramaticaA.Size = new System.Drawing.Size(169, 210);
             this.gBGramaticaA.TabIndex = 10;
             this.gBGramaticaA.TabStop = false;
             this.gBGramaticaA.Text = "Gramatica Aumentada";
@@ -179,7 +181,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            this.ClientSize = new System.Drawing.Size(1330, 641);
+            this.ClientSize = new System.Drawing.Size(1020, 641);
             this.Controls.Add(this.btnGenera);
             this.Controls.Add(this.gBGramaticaA);
             this.Controls.Add(this.gBGramatica);
