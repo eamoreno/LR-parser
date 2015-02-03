@@ -4,6 +4,10 @@ using System.Linq;
 using System.Text;
 using System.IO;
 using System.Text.RegularExpressions;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
 
 namespace LR1
 {
@@ -78,13 +82,26 @@ namespace LR1
             return ret;
         }
 
-        public static List<string[]> Items(string[] gramarGp)
+        public static string MakePoint(string cadena)
         {
+            int posfle = cadena.IndexOf('>');
+            cadena = cadena.Remove(posfle + 1, 1).Insert(posfle + 1, " .");
+            return cadena;
+        }
+
+        public static List<Nodo> Items(string[] gramarGp)
+        {
+            var lnsc = new List<Nodo>();
+
             var sC = new List<string[]>();
-            var n = Closure(new[] { "S' -> .S, $" }, gramarGp);
+            string dato = MakePoint(gramarGp[0] + ", $");                        
+            var n = Closure(new[] { dato }, gramarGp);
+            int ava = 0;
             sC.Add(n);
+            var Estados = new Nodo { Id = ava, Produc = n, X = 0, Y = 0, Aristas = new List<Arista>() };
+            lnsc.Add(Estados);
             for (var i = 0; i < sC.Count; i++)
-            {
+            {                 
                 var I = sC[i];
                 foreach (var prod in I)
                 {
@@ -94,10 +111,19 @@ namespace LR1
                     if (itemSet.Any() && !ContainsItemsSet(sC, itemSet))
                     {
                         sC.Add(itemSet);
+                        ava++;
+                        var NuevosEstados = new Nodo { Id = ava, Produc = itemSet, X = 0, Y = 0, Aristas = new List<Arista>() };
+                        lnsc.Add(NuevosEstados);                                                
+                        CreaAristas(x, lnsc[i], NuevosEstados);
                     }
-                }
+                }                
             }
-            return sC;
+            return lnsc;
+        }
+
+        public static void CreaAristas(string sigue, Nodo Origen, Nodo Destino)
+        {
+            Origen.Aristas.Add(new Arista { Id = sigue, Nodo = Destino });
         }
 
         public static string[] First(string[] elements, string[] gramar)

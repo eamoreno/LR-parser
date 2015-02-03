@@ -2,3 +2,7 @@ E:\LR1\LR1Parser\bin\Debug\LR1Parser.dll
 E:\LR1\LR1Parser\bin\Debug\LR1Parser.pdb
 E:\LR1\LR1Parser\obj\Debug\LR1Parser.dll
 E:\LR1\LR1Parser\obj\Debug\LR1Parser.pdb
+C:\Users\JoseLuis\Documents\GitHub\LR-parser\LR1Parser\bin\Debug\LR1Parser.dll
+C:\Users\JoseLuis\Documents\GitHub\LR-parser\LR1Parser\bin\Debug\LR1Parser.pdb
+C:\Users\JoseLuis\Documents\GitHub\LR-parser\LR1Parser\obj\Debug\LR1Parser.dll
+C:\Users\JoseLuis\Documents\GitHub\LR-parser\LR1Parser\obj\Debug\LR1Parser.pdb
