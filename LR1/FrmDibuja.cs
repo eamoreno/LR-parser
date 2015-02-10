@@ -13,7 +13,7 @@ namespace LR1
     public partial class FrmDibuja : Form
     {
         public List<string[]> edos;
-        public List<Nodo> AfdNodos { get; set; }
+        public List<State> AfdNodos { get; set; }
 
         private int xcen = 400;
         private int ycen = 300;
@@ -115,8 +115,8 @@ namespace LR1
             AdjustableArrowCap finfle = new AdjustableArrowCap(5, 5);
             _plumaFlecha.EndCap = System.Drawing.Drawing2D.LineCap.ArrowAnchor;
             _plumaFlecha.CustomEndCap = finfle;
-            int incurv = 0, inletr1 = 0, inletr2 = 0, inletr3 = 0, inletr4 = 0;
-            int inletr1r = 0, inletr2r = 0, inletr3r = 0;
+            int incurv = 0;
+            //int inletr1r = 0, inletr2r = 0, inletr3r = 0, inletr1 = 0, inletr2 = 0, inletr3 = 0, inletr4 = 0;
             string letcurv = "", letra1 = "", letra2 = "", letra3 = "", letra4 = "";
             string letra1r = "", letra2r = "", letra3r = "", letra4r = "";
             bool band1 = false, band2 = false, band3 = false, band4 = false;
@@ -321,10 +321,10 @@ namespace LR1
                 band3 = false;
                 band4 = false;
                 incurv = 0;
-                inletr2 = 0;
+              /*  inletr2 = 0;
                 inletr1 = 0;
                 inletr3 = 0;
-                inletr4 = 0;
+                inletr4 = 0;*/
                 letcurv = "";
                 letra1 = "";
                 letra2 = "";
@@ -337,7 +337,7 @@ namespace LR1
             _graphics.FillRectangle(colorbl, 20, 20, 50, 50);
         }
 
-        private void PintaArista(Nodo nodoIni, Nodo nodoEnd, Arista arista)
+        private void PintaArista(State nodoIni, State nodoEnd, Arista arista)
         {
             var nix = nodoIni.X;
             var niy = nodoIni.Y;
@@ -373,7 +373,7 @@ namespace LR1
             pbDibujo.Refresh();            
         }
 
-        private void creaVuelta(Nodo afdNodo, Graphics g, int op)
+        private void creaVuelta(State afdNodo, Graphics g, int op)
         {
             PointF p1 = new PointF(afdNodo.X, afdNodo.Y + 15);
             PointF p2 = new PointF(afdNodo.X - curva - 10, afdNodo.Y + 15 + curva);
@@ -386,7 +386,7 @@ namespace LR1
                 g.DrawCurve(_plumaFlechaR, arreglo);
         }
 
-        private void dibuja(Nodo afdNodo, Graphics dib)
+        private void dibuja(State afdNodo, Graphics dib)
         {
             AdjustableArrowCap finfle = new AdjustableArrowCap(5, 5);
             _plumaFlecha.EndCap = System.Drawing.Drawing2D.LineCap.ArrowAnchor;

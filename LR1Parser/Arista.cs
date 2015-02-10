@@ -8,6 +8,6 @@ namespace LR1
     public class Arista
     {
         public string Id { get; set; }
-        public Nodo Nodo { get; set; }
+        public State Nodo { get; set; }
     }
 }
