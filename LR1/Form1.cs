@@ -64,7 +64,7 @@ namespace LR1
             if (band)
             {
                // array = this.rtbGramaticaA.Text.Split('\n');
-                array = LR1Parser.Tools.GetProductions(this.rtbGramaticaA.Text);
+                array = LR1Parser.Tools.GetProductions(this.rtbGramatica.Text);
                 setC = Parser.Items(array, ref Estados);
                 ActionButtons();                
             }
@@ -125,14 +125,32 @@ namespace LR1
             bool band = false;
             if (this.rtbGramatica.Text != "")
             {
-                String dato = rtbGramatica.Text.Substring(0, 1);
-                this.rtbGramaticaA.Text = dato + "' -> " + dato + "\n" + this.rtbGramatica.Text;
+                string dato = LR1Parser.Tools.Increases(rtbGramatica.Text);
+                string finishA = Aumentada(dato);
+                /*String dato = rtbGramatica.Text.Substring(0, 1);
+                this.rtbGramaticaA.Text = dato + "' -> " + dato + "\n" + this.rtbGramatica.Text;*/
+                this.rtbGramaticaA.Text = finishA + "\n" + rtbGramatica.Text;
                 band = true;
 
             }
             else
                 MessageBox.Show("Introduce Alguna Produccion");
             return band;
+        }
+
+        private string Aumentada(string dato)
+        {
+            var retaum = "";
+
+            for (int i = 0; i < dato.Length; i++)
+            {
+                if (i == (dato.Length)- 1 && dato[i] == '>')                
+                    retaum = retaum + "'>";                
+                else
+                    retaum = retaum + dato[i];                  
+            }
+
+            return retaum;
         }
 
         private void btnAnaliza_Click(object sender, EventArgs e)

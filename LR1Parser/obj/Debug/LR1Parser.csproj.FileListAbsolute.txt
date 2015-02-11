@@ -17,3 +17,8 @@ C:\Users\JoseLuis\Desktop\LR-parser\LR1Parser\obj\Debug\LR1Parser.pdb
 C:\Users\JoseLuis\Desktop\LR-parser\LR1Parser\bin\Debug\LR1Parser.dll
 C:\Users\JoseLuis\Desktop\LR-parser\LR1Parser\bin\Debug\LR1Parser.pdb
 C:\Users\JoseLuis\Documents\GitHub\LR-parser\LR1Parser\obj\Debug\LR1Parser.csprojResolveAssemblyReference.cache
+F:\LR1\LR-parser\LR1Parser\bin\Debug\LR1Parser.dll
+F:\LR1\LR-parser\LR1Parser\bin\Debug\LR1Parser.pdb
+F:\LR1\LR-parser\LR1Parser\obj\Debug\LR1Parser.csprojResolveAssemblyReference.cache
+F:\LR1\LR-parser\LR1Parser\obj\Debug\LR1Parser.dll
+F:\LR1\LR-parser\LR1Parser\obj\Debug\LR1Parser.pdb

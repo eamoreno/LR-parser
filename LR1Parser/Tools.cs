@@ -23,6 +23,67 @@ namespace LR1Parser
             return ret;
         }
 
+        public static string[] GetProductions(string gramar)
+        {            
+            var production = new List<String>();
+            var array = gramar.Split('\n');
+            foreach (var prod in array)
+            {               
+                string pattern = string.Format("{0}|{1}|{2}|{3}", _noTerminalPattern, _terminalPattern, _orPattern.ToMeta(), _producePattern);
+                var elements = Regex.Matches(prod, pattern).Cast<Match>().Select(m => m.Value.Trim()).ToArray();
+                var prods = GetSubProduction(elements);
+                production.AddRange(prods);
+            }
+
+            return production.ToArray<string>();
+        }
+
+        public static string Increases(string gramar)
+        {
+            string aum = "";
+
+            var produ = Regex.Match(gramar, _noTerminalPattern);
+            aum = produ + " -> " + produ;
+            //Queda en Formato <S> -> <S'>
+            return aum;
+        }
+
+        public static string[] GetSubProduction(string[] elements)
+        {
+             List<string> retArrray = new List<string>();
+             var r = new Regex(_noTerminalPattern);
+                if (!r.IsMatch(elements[0]))
+                {
+                    throw new Exception("Error DE Inicio en Produccion" + elements[0]);
+                }
+
+             var first = elements[0];
+             var second = elements[1];
+             var production = "";
+             int inc = 0;
+             foreach(var element in elements)
+             {
+                 if (element.Contains(_orPattern))
+                 {
+                     retArrray.Add(production);
+                     production = "";
+                     inc++;
+                 }
+                 else
+                 {
+                     if (inc == 0)  //si no a entrado ninguna vez
+                         production = production + element;
+                     else
+                     {                      //si ya entro una vez                      
+                         production = first + second + element;
+                         inc = 0;
+                     }   
+                 }                 
+             }
+             retArrray.Add(production);
+             return retArrray.ToArray();
+        }
+
  		public static string[] First(string[] elements, string[] gramar){
  			var firsts = new List<string> ();
  			foreach (var element in elements) {
@@ -34,13 +95,13 @@ namespace LR1Parser
  			return firsts.Distinct().ToArray();
  		}
  
-        public static string[] GetProductions(string gramar)
+       /* public static string[] GetProductions(string gramar)
         {
             string productionPatern = productionPattern();
             var productions = Regex.Matches(gramar, productionPatern).Cast<Match>().Select( m => m.Value.Trim()).ToArray();
             return productions;
 
-        }
+        }*/       
 
  		public static string[] First(string element, string[] gramar){
  			var firsts = new List<string> ();
