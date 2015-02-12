@@ -44,8 +44,9 @@ namespace LR1
         }
 
         private void btnGenera_Click(object sender, EventArgs e)
-        {            
-            bool band =MakeAumentada();
+        {
+            string aum = "";
+            bool band =MakeAumentada(ref aum);
            /* var gramarG = new[] {
 				"S' -> S", 
 				"S -> C C",
@@ -64,11 +65,12 @@ namespace LR1
             if (band)
             {
                // array = this.rtbGramaticaA.Text.Split('\n');
-                array = LR1Parser.Tools.GetProductions(this.rtbGramatica.Text);
+                array = LR1Parser.Tools.GetProductions(aum +  "\n" +this.rtbGramatica.Text);                
+                string cad = LR1Parser.Tools.Normalization(array);
                 setC = Parser.Items(array, ref Estados);
                 ActionButtons();                
             }
-        }
+        }        
 
         public static void LRTable(List<string[]> setC, string[] gramarGp)
         {
@@ -91,12 +93,13 @@ namespace LR1
                     }
                     if (isTerminal)
                     {
-                        //var production = setC[i].FirstOrDefault();
-                        //if (Tools.IsPointOfEnd (production)) {
-                        //Verificar que la gramatica este en el formato adecuado
-                        //index = IndexOfGramar(gramarGp, production);
-                        //action [i, j] = string.Format ("r{0}", index);
-                        //}
+                        var production = setC[i].FirstOrDefault();
+                        if (LR1Parser.Tools.IsPointAtEnd(production)) 
+                        {
+                            //Verificar que la gramatica este en el formato adecuado
+                            index = LR1Parser.Tools.IndexOfGramar(gramarGp, production);
+                            action [i, j] = string.Format ("r{0}", index);
+                        }
                     }
                 }
             }
@@ -120,16 +123,16 @@ namespace LR1
             btnObtenTabla.Enabled = false; ;
         }
 
-        private bool MakeAumentada()
+        private bool MakeAumentada(ref string dato)
         {
             bool band = false;
             if (this.rtbGramatica.Text != "")
             {
-                string dato = LR1Parser.Tools.Increases(rtbGramatica.Text);
-                string finishA = Aumentada(dato);
-                /*String dato = rtbGramatica.Text.Substring(0, 1);
-                this.rtbGramaticaA.Text = dato + "' -> " + dato + "\n" + this.rtbGramatica.Text;*/
-                this.rtbGramaticaA.Text = finishA + "\n" + rtbGramatica.Text;
+                dato = LR1Parser.Tools.Increases(rtbGramatica.Text);
+                /*string finishA = Aumentada(dato);
+                String dato = rtbGramatica.Text.Substring(0, 1);
+                this.rtbGramaticaA.Text = dato + "' -> " + dato + "\n" + this.rtbGramatica.Text;
+                this.rtbGramaticaA.Text = finishA + "\n" + rtbGramatica.Text;*/
                 band = true;
 
             }

@@ -8,8 +8,8 @@ namespace LR1Parser
 {
     public static class Tools
     {
-        private const string _terminalPattern = "[a-z]+";
- 		private const string _noTerminalPattern = "<[A-Za-z]+>";
+        private const string _terminalPattern = "[a-z=]+";
+ 		private const string _noTerminalPattern = "<[A-Za-z]+'?>";
  		private const string _producePattern = "->";
 		private const string _orPattern = "|";
         //private const string _production = "<[A-Za-z]+> *->(<[A-Za-z]+>|[a-z]+| )+(\|(<[A-Za-z]+>|[a-z]+| )+)+";
@@ -33,9 +33,24 @@ namespace LR1Parser
                 var elements = Regex.Matches(prod, pattern).Cast<Match>().Select(m => m.Value.Trim()).ToArray();
                 var prods = GetSubProduction(elements);
                 production.AddRange(prods);
-            }
-
+            }            
             return production.ToArray<string>();
+        }
+
+        public static string Normalization(string[] dato)
+        {
+            string ret = "";            
+
+            foreach (var linea in dato)
+            {               
+                 string patern = string.Format("{0}|{1}|{2}|{3}", _noTerminalPattern, _terminalPattern, _orPattern.ToMeta(), _producePattern);
+                 var elements = Regex.Matches(linea,patern).Cast<Match>().Select(m => m.Value.Trim()).ToArray();
+                 foreach (var elemnt in elements)                 
+                     ret = ret + elemnt + " ";                                 
+                 ret = ret.Trim();
+                 ret = ret + "\n";
+            }
+            return ret;
         }
 
         public static string Increases(string gramar)
@@ -43,8 +58,10 @@ namespace LR1Parser
             string aum = "";
 
             var produ = Regex.Match(gramar, _noTerminalPattern);
-            aum = produ + " -> " + produ;
-            //Queda en Formato <S> -> <S'>
+            var prodfirst = produ.ToString().Replace(">", "'>");
+            
+            aum = prodfirst + " -> " + produ;
+            //Queda en Formato <S'> -> <S>
             return aum;
         }
 
@@ -120,7 +137,17 @@ namespace LR1Parser
  			}
  			return firsts.Distinct().ToArray();
  		}
- 
+
+        public static bool IsPointAtEnd(string cad)
+        {
+            bool band = false;
+
+            int tam = cad.Length;
+            if (cad[tam - 1] == '.')
+                band = true;
+            return band;
+        }
+
  		public static string[] First(string production)
         {
  			string patternTerminal1 = string.Format("{0}( )*{1}", _producePattern, _terminalPattern);
@@ -245,7 +272,8 @@ namespace LR1Parser
  			return false;
  		}
  
- 		public static int IndexOfGramar(string[] gramar, string production){
+ 		public static int IndexOfGramar(string[] gramar, string production)
+        {
  			for (var i = 0; i < gramar.Count(); i++)
  			{
  				if(production == gramar[i]){
