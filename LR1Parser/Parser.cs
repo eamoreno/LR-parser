@@ -35,7 +35,8 @@ namespace LR1
 			foreach(var prod in I){
                 var elements = LR1Parser.Tools.GetElements(prod);
 				var eA = elements[0];
-				var alpha = elements [1];
+				//var alpha = elements [1];
+                var alpha = LR1Parser.Tools.GetAlpha(prod);
 			    var eX = elements[2];
                 var beta = string.Join(" ", LR1Parser.Tools.GetBeta(prod));
 				var a = elements [4];
@@ -81,8 +82,8 @@ namespace LR1
 
         public static string MakePoint(string cadena)
         {
-            int posfle = cadena.IndexOf('>');
-            cadena = cadena.Remove(posfle + 1, 1).Insert(posfle + 1, " .");
+            int posfle = cadena.IndexOf("->");
+            cadena = cadena.Remove(posfle + 2, 1).Insert(posfle + 2, " .");
             return cadena;
         }        
 

@@ -35,13 +35,29 @@
             this.btnAnaliza = new System.Windows.Forms.Button();
             this.txtbAnaliza = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.dGVAnalisis = new System.Windows.Forms.DataGridView();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.dGVAccion = new System.Windows.Forms.DataGridView();
             this.rtbGramaticaA = new System.Windows.Forms.RichTextBox();
             this.gBGramatica = new System.Windows.Forms.GroupBox();
             this.gBGramaticaA = new System.Windows.Forms.GroupBox();
             this.btnGenera = new System.Windows.Forms.Button();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.button1 = new System.Windows.Forms.Button();
+            this.groupBox1.SuspendLayout();
+            this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dGVAnalisis)).BeginInit();
+            this.groupBox2.SuspendLayout();
+            this.panel3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dGVAccion)).BeginInit();
             this.gBGramatica.SuspendLayout();
             this.gBGramaticaA.SuspendLayout();
+            this.groupBox3.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnCarga
@@ -96,7 +112,7 @@
             this.btnAnaliza.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.btnAnaliza.Enabled = false;
             this.btnAnaliza.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAnaliza.Location = new System.Drawing.Point(147, 693);
+            this.btnAnaliza.Location = new System.Drawing.Point(110, 114);
             this.btnAnaliza.Name = "btnAnaliza";
             this.btnAnaliza.Size = new System.Drawing.Size(134, 41);
             this.btnAnaliza.TabIndex = 4;
@@ -108,15 +124,16 @@
             // 
             this.txtbAnaliza.Enabled = false;
             this.txtbAnaliza.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtbAnaliza.Location = new System.Drawing.Point(147, 638);
+            this.txtbAnaliza.Location = new System.Drawing.Point(77, 62);
             this.txtbAnaliza.Name = "txtbAnaliza";
-            this.txtbAnaliza.Size = new System.Drawing.Size(148, 24);
+            this.txtbAnaliza.Size = new System.Drawing.Size(192, 24);
             this.txtbAnaliza.TabIndex = 5;
             this.txtbAnaliza.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // groupBox1
             // 
             this.groupBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
+            this.groupBox1.Controls.Add(this.panel1);
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.Location = new System.Drawing.Point(413, 121);
             this.groupBox1.Name = "groupBox1";
@@ -125,9 +142,28 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Tabla de Analisis Sintactico";
             // 
+            // panel1
+            // 
+            this.panel1.AutoScroll = true;
+            this.panel1.Controls.Add(this.dGVAnalisis);
+            this.panel1.Location = new System.Drawing.Point(6, 21);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(819, 329);
+            this.panel1.TabIndex = 0;
+            // 
+            // dGVAnalisis
+            // 
+            this.dGVAnalisis.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dGVAnalisis.Location = new System.Drawing.Point(13, 18);
+            this.dGVAnalisis.Name = "dGVAnalisis";
+            this.dGVAnalisis.Size = new System.Drawing.Size(803, 291);
+            this.dGVAnalisis.TabIndex = 0;
+            this.dGVAnalisis.Visible = false;
+            // 
             // groupBox2
             // 
             this.groupBox2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
+            this.groupBox2.Controls.Add(this.panel3);
             this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox2.Location = new System.Drawing.Point(413, 505);
             this.groupBox2.Name = "groupBox2";
@@ -136,6 +172,28 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Tabla de Acciones de Analisis Sintactico";
             this.groupBox2.Enter += new System.EventHandler(this.groupBox2_Enter);
+            // 
+            // panel3
+            // 
+            this.panel3.AutoScroll = true;
+            this.panel3.Controls.Add(this.dGVAccion);
+            this.panel3.Location = new System.Drawing.Point(6, 21);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(819, 266);
+            this.panel3.TabIndex = 0;
+            // 
+            // dGVAccion
+            // 
+            this.dGVAccion.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dGVAccion.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Column1,
+            this.Column2,
+            this.Column3});
+            this.dGVAccion.Location = new System.Drawing.Point(13, 10);
+            this.dGVAccion.Name = "dGVAccion";
+            this.dGVAccion.Size = new System.Drawing.Size(798, 253);
+            this.dGVAccion.TabIndex = 0;
+            this.dGVAccion.Visible = false;
             // 
             // rtbGramaticaA
             // 
@@ -183,29 +241,82 @@
             this.btnGenera.UseVisualStyleBackColor = false;
             this.btnGenera.Click += new System.EventHandler(this.btnGenera_Click);
             // 
+            // groupBox3
+            // 
+            this.groupBox3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
+            this.groupBox3.Controls.Add(this.txtbAnaliza);
+            this.groupBox3.Controls.Add(this.btnAnaliza);
+            this.groupBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox3.Location = new System.Drawing.Point(28, 613);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(371, 179);
+            this.groupBox3.TabIndex = 13;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Tokens Terminales van Separados Por Espacios";
+            // 
+            // Column1
+            // 
+            this.Column1.HeaderText = "Pila AS";
+            this.Column1.Name = "Column1";
+            this.Column1.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.Column1.Width = 250;
+            // 
+            // Column2
+            // 
+            this.Column2.HeaderText = "Cadena de Entrada";
+            this.Column2.Name = "Column2";
+            this.Column2.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.Column2.Width = 250;
+            // 
+            // Column3
+            // 
+            this.Column3.HeaderText = "Accion";
+            this.Column3.Name = "Column3";
+            this.Column3.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.Column3.Width = 250;
+            // 
+            // button1
+            // 
+            this.button1.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button1.Location = new System.Drawing.Point(501, 836);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(134, 41);
+            this.button1.TabIndex = 14;
+            this.button1.Text = "Salir";
+            this.button1.UseVisualStyleBackColor = false;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            this.ClientSize = new System.Drawing.Size(1276, 845);
+            this.ClientSize = new System.Drawing.Size(1156, 900);
+            this.Controls.Add(this.button1);
+            this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.btnGenera);
             this.Controls.Add(this.gBGramaticaA);
             this.Controls.Add(this.gBGramatica);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.txtbAnaliza);
-            this.Controls.Add(this.btnAnaliza);
             this.Controls.Add(this.btnDibuja);
             this.Controls.Add(this.btnObtenTabla);
             this.Controls.Add(this.btnCarga);
             this.Name = "Form1";
             this.Text = "LR(0)";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.groupBox1.ResumeLayout(false);
+            this.panel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dGVAnalisis)).EndInit();
+            this.groupBox2.ResumeLayout(false);
+            this.panel3.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dGVAccion)).EndInit();
             this.gBGramatica.ResumeLayout(false);
             this.gBGramaticaA.ResumeLayout(false);
+            this.groupBox3.ResumeLayout(false);
+            this.groupBox3.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -223,6 +334,15 @@
         private System.Windows.Forms.GroupBox gBGramatica;
         private System.Windows.Forms.GroupBox gBGramaticaA;
         private System.Windows.Forms.Button btnGenera;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Panel panel3;
+        private System.Windows.Forms.DataGridView dGVAccion;
+        private System.Windows.Forms.DataGridView dGVAnalisis;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
+        private System.Windows.Forms.Button button1;
     }
 }
 

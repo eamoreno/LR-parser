@@ -8,10 +8,13 @@ namespace LR1Parser
 {
     public static class Tools
     {
-        private const string _terminalPattern = "[a-z=]+";
+        private const string _terminalPattern = "[a-z+=()]+";
  		private const string _noTerminalPattern = "<[A-Za-z]+'?>";
  		private const string _producePattern = "->";
 		private const string _orPattern = "|";
+        private const string _comaPattern = ",";
+        private const string _number = "[0-9]+";
+        private const string _pointPattern = ".";
         //private const string _production = "<[A-Za-z]+> *->(<[A-Za-z]+>|[a-z]+| )+(\|(<[A-Za-z]+>|[a-z]+| )+)+";
  
  
@@ -21,6 +24,14 @@ namespace LR1Parser
                 _noTerminalPattern, _producePattern, _terminalPattern, _orPattern.ToMeta());   
          
             return ret;
+        }
+        public static string[] GetTokens(string stringInput)
+        {          
+            
+            string pattern = string.Format("{0}|{1}|{2}|{3}", _noTerminalPattern, _terminalPattern, _orPattern.ToMeta(), _producePattern);
+            var elements = Regex.Matches(stringInput, pattern).Cast<Match>().Select(m => m.Value.Trim()).ToArray();
+
+            return elements;
         }
 
         public static string[] GetProductions(string gramar)
@@ -37,13 +48,20 @@ namespace LR1Parser
             return production.ToArray<string>();
         }
 
+        public static string RetLastElement(string production)
+        {
+            string pattern = string.Format("{0}|{1}|{2}|\\$", _noTerminalPattern, _terminalPattern, _comaPattern);
+            var elements = Regex.Matches(production,pattern).Cast<Match>().Select(m => m.Value.Trim()).ToArray();
+            return elements.Last().Trim() ;            
+        }
+
         public static string Normalization(string[] dato)
         {
             string ret = "";            
 
             foreach (var linea in dato)
-            {               
-                 string patern = string.Format("{0}|{1}|{2}|{3}", _noTerminalPattern, _terminalPattern, _orPattern.ToMeta(), _producePattern);
+            {
+                string patern = string.Format("{0}|{1}|{2}|{3}", _noTerminalPattern, _terminalPattern, _orPattern.ToMeta(), _producePattern);
                  var elements = Regex.Matches(linea,patern).Cast<Match>().Select(m => m.Value.Trim()).ToArray();
                  foreach (var elemnt in elements)                 
                      ret = ret + elemnt + " ";                                 
@@ -60,7 +78,7 @@ namespace LR1Parser
             var produ = Regex.Match(gramar, _noTerminalPattern);
             var prodfirst = produ.ToString().Replace(">", "'>");
             
-            aum = prodfirst + " -> " + produ;
+            aum = prodfirst + " " + _producePattern + " " + produ;
             //Queda en Formato <S'> -> <S>
             return aum;
         }
@@ -89,10 +107,10 @@ namespace LR1Parser
                  else
                  {
                      if (inc == 0)  //si no a entrado ninguna vez
-                         production = production + element;
+                         production = production + element +" ";
                      else
                      {                      //si ya entro una vez                      
-                         production = first + second + element;
+                         production = first + " " + second + " " + element +" ";
                          inc = 0;
                      }   
                  }                 
@@ -142,6 +160,8 @@ namespace LR1Parser
         {
             bool band = false;
 
+            int pos = cad.IndexOf(',');
+            cad = cad.Remove(pos);
             int tam = cad.Length;
             if (cad[tam - 1] == '.')
                 band = true;
@@ -274,14 +294,20 @@ namespace LR1Parser
  
  		public static int IndexOfGramar(string[] gramar, string production)
         {
+            EraseAfterPoint(ref production);
  			for (var i = 0; i < gramar.Count(); i++)
  			{
- 				if(production == gramar[i]){
- 					return i;
- 				}
+ 				if(production.Trim() == gramar[i].Trim())                  
+ 					return i; 				
  			}
  			return -1;
  		}
+
+        public static void EraseAfterPoint(ref string production)
+        {
+            int pos = production.IndexOf(',');
+            production = production.Remove(pos -1);
+        }
  
  		public static int IndexOfItemsSet(List<string[]> itemsSet, string[] item)
  		{
@@ -314,11 +340,11 @@ namespace LR1Parser
  
  		public static string MakeProduction(string elementA, string alpha, string x, string beta, string a){
  			var prod = elementA + " " + _producePattern; 
- 			if (alpha != null)
+ 			if (alpha != "")
  				prod += " " + alpha;
  			if (x != null)
  			{
- 				prod += " " + x;
+ 				prod = prod + " " + x ;
  			}
  			prod += ".";
  			if (beta != null)
@@ -350,5 +376,97 @@ namespace LR1Parser
  			}
  			return totalTerminals.ToArray();
  		}
+
+        public static int GetIndexX(string cadena, string[] tokenSearch)
+        {
+            for(int i=0; i < tokenSearch.Count(); i++)
+            {
+                if (tokenSearch[i] == cadena)
+                    return i;
+            }
+            return -1;
+        }
+
+        public static int GetIndexY(string cadena)
+        {            
+            string pattern = string.Format("{0}", _number);
+            var elements = Regex.Matches(cadena, pattern).Cast<Match>().Select(m => m.Value.Trim()).ToArray();            
+
+            return  Convert.ToInt32(elements.Last());
+        }
+
+        public static string GetProduction(string[] gramarGp, int ind)
+        {
+            for (int i = 0; i < gramarGp.Count(); i++)
+                if (i == ind)
+                    return gramarGp[i].ToString();
+            return "";
+        }
+
+        public static int GetElementosDelete(string cadena, ref string pater)
+        {
+            int retLength = 0;
+            bool band = false;
+            string pattern = string.Format("{0}|{1}|{2}|{3}", _noTerminalPattern, _terminalPattern, _orPattern.ToMeta(), _producePattern);
+            var elements = Regex.Matches(cadena, pattern).Cast<Match>().Select(m => m.Value.Trim()).ToArray();
+
+            foreach (var elemen in elements)
+            {
+                if (band)
+                    retLength++;
+                if (elemen == "->")                
+                    band = true;
+                if (!band)
+                    pater = elemen;
+            }
+            return retLength;
+        }
+
+        public static string GetAlpha(string production)
+        {
+            string retElements = "";
+            bool band = false;
+
+            string pattern = string.Format("{0}|{1}|{2}|{3}", _noTerminalPattern, _terminalPattern, _producePattern, _pointPattern);
+            var elements = Regex.Matches(production, pattern).Cast<Match>().Select(m => m.Value.Trim()).ToArray();
+
+            foreach (var pat in elements)
+            {
+                if (band)
+                {
+                    if (pat == ".")                    
+                        return retElements.Trim();
+                    if(pat == "")
+                        retElements = retElements + " ";
+                    retElements = retElements + pat;
+                }
+                if (pat == "->")
+                    band = true;
+            }
+            return retElements.Trim();
+        }
+
+        public static bool VerificateTokens(string[] tokens, string cadena)
+        {
+            bool band = true;        
+            if (cadena != "")
+            {
+                string pattern = string.Format("{0}|{1}|{2}|{3}", _noTerminalPattern, _terminalPattern, _orPattern.ToMeta(), _producePattern);
+                var elements = Regex.Matches(cadena, pattern).Cast<Match>().Select(m => m.Value.Trim()).ToArray();
+                
+                foreach (var element in elements)
+                {
+                    bool bandVer = false;
+                    for (int i = 0; i < tokens.Count(); i++)
+                    {                        
+                        if (tokens[i] == element)
+                            bandVer = true;
+                    }
+                    if (bandVer == false)
+                        return false;
+                }
+            }
+            return band;
+        }
  	}     
 }
